@@ -7,9 +7,10 @@ let seriesTbody: HTMLElement = document.getElementById('series')!;
 const totalSeries: HTMLElement = document.getElementById("total-series")!;
 
 
+
 renderCoursesInTable(series);
 
-totalSeries.innerHTML = `${promedioSeries(series)}`
+totalSeries.innerHTML = `${promedioSeries(series)}`;
 
 
 function renderCoursesInTable(series: Serie[]): void {
@@ -24,9 +25,9 @@ function renderCoursesInTable(series: Serie[]): void {
   });
 }
 
-function promedioSeries(series: Serie[]): number {
+function promedioSeries(series: Serie[]): number 
+{
   let promedio: number = 0;
-  series.forEach((serie) => promedio = promedio + serie.seasons);
+  series.forEach((serie) => promedio=promedio + serie.seasons);
   return promedio/series.length;
 }
-
