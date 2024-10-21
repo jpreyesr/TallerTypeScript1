@@ -27,6 +27,6 @@ function renderCoursesInTable(series: Serie[]): void {
 function promedioSeries(series: Serie[]): number {
   let promedio: number = 0;
   series.forEach((serie) => promedio = promedio + serie.seasons);
-  return promedio;
+  return promedio/series.length;
 }
 
