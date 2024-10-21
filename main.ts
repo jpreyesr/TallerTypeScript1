@@ -1,60 +1,32 @@
 
-import { Course } from './course.js';
+import { Serie } from './Serie.js';
 
-import { dataCourses } from './data.js';
+import { series } from './data.js';
 
-let coursesTbody: HTMLElement = document.getElementById('courses')!;
-const btnfilterByName: HTMLElement = document.getElementById("button-filterByName")!;
-const inputSearchBox: HTMLInputElement = <HTMLInputElement> document.getElementById("search-box")!;
-const totalCreditElm: HTMLElement = document.getElementById("total-credits")!;
+let seriesTbody: HTMLElement = document.getElementById('series')!;
+const totalSeries: HTMLElement = document.getElementById("total-series")!;
 
 
-btnfilterByName.onclick = () => applyFilterByName();
+renderCoursesInTable(series);
 
-renderCoursesInTable(dataCourses);
-
-totalCreditElm.innerHTML = `${getTotalCredits(dataCourses)}`
+totalSeries.innerHTML = `${promedioSeries(series)}`
 
 
-function renderCoursesInTable(courses: Course[]): void {
-  console.log('Desplegando cursos');
-  courses.forEach((course) => {
+function renderCoursesInTable(series: Serie[]): void {
+  console.log('Desplegando series');
+  series.forEach((serie) => {
     let trElement = document.createElement("tr");
-    trElement.innerHTML = `<td>${course.name}</td>
-                           <td>${course.professor}</td>
-                           <td>${course.credits}</td>`;
-    coursesTbody.appendChild(trElement);
+    trElement.innerHTML = `<td>${serie.id}</td>
+                           <td>${serie.name}</td>
+                           <td>${serie.channel}</td>
+                           <td>${serie.seasons}</td>`;
+    seriesTbody.appendChild(trElement);
   });
 }
- 
 
- 
-
-function applyFilterByName() { 
-  let text = inputSearchBox.value;
-  text = (text == null) ? '' : text;
-  clearCoursesInTable();
-  let coursesFiltered: Course[] = searchCourseByName(text, dataCourses);
-  renderCoursesInTable(coursesFiltered);
+function promedioSeries(series: Serie[]): number {
+  let promedio: number = 0;
+  series.forEach((serie) => promedio = promedio + serie.seasons);
+  return promedio;
 }
 
-function searchCourseByName(nameKey: string, courses: Course[]) {
-  return nameKey === '' ? dataCourses : courses.filter( c => 
-    c.name.match(nameKey));
-}
-
-
-function getTotalCredits(courses: Course[]): number {
-  let totalCredits: number = 0;
-  courses.forEach((course) => totalCredits = totalCredits + course.credits);
-  return totalCredits;
-}
-
-function clearCoursesInTable() {
-  while (coursesTbody.hasChildNodes()) {
-    if (coursesTbody.firstChild != null) {
-      coursesTbody.removeChild(coursesTbody.firstChild);
-     
-    }
-  }
-}
