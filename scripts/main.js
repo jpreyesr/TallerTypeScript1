@@ -14,5 +14,5 @@ function renderCoursesInTable(series) {
 function promedioSeries(series) {
     var promedio = 0;
     series.forEach(function (serie) { return promedio = promedio + serie.seasons; });
-    return promedio;
+    return promedio / series.length;
 }
